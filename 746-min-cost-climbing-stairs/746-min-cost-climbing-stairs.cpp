@@ -26,7 +26,7 @@ public:
         return dp[n];
     }
     
-    // Tabulation
+    // Tabulation => 
     int solve3(vector<int> &cost, int n){
         
         // Create dp array
@@ -43,7 +43,17 @@ public:
         return min(dp[n-1], dp[n-2]);
     }
     
-    
+    int solve4(vector<int> &cost, int n){
+        int prev2 = cost[0];
+        int prev1 = cost[1];
+        
+        for(int i=2; i<n; i++){
+            int curr = cost[i] + min(prev1, prev2);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return min(prev1, prev2);
+    }
     
     int minCostClimbingStairs(vector<int>& cost) {
         int n = cost.size();
@@ -58,6 +68,9 @@ public:
         // return ans;
         
         // Tabulation
-        return solve3(cost, n);
+        //return solve3(cost, n);
+        
+        // Space Optimised
+        return solve4(cost, n);
     }
 };
