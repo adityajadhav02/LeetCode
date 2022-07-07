@@ -18,7 +18,7 @@ public:
             
             st.push(num[i]);
             
-            if(st.size()==1 & num[i]=='0')
+            if(st.size()==1 & st.top()=='0')
                 st.pop();
         }
         
