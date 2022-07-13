@@ -28,7 +28,30 @@ public:
         return dp[r][c] = min(up, left);
     }
     
-    
+    int solveTab(vector<vector<int>>& grid){
+        int r = grid.size();
+        int c = grid[0].size();
+        
+        vector<vector<int>> dp(r, vector<int> (c, 0));
+        
+        
+        for(int i=0; i<r; i++){
+            for(int j=0; j<c; j++){
+                
+                int up = 1e9, left = 1e9;
+                if(i==0 && j==0) dp[i][j] = grid[0][0];
+                
+                else {
+                    if(i>0) up = grid[i][j] + dp[i-1][j];
+                    if(j>0) left = grid[i][j] + dp[i][j-1];
+        
+                    dp[i][j] = min(up, left);
+                }
+            }
+        }
+        
+        return dp[r-1][c-1];
+    }
     
     int minPathSum(vector<vector<int>>& grid) {
         int r = grid.size();
@@ -36,7 +59,9 @@ public:
         
         // return solve(grid, r-1, c-1);
         
-        vector<vector<int>> dp(r, vector<int> (c, -1));
-        return solveMem(grid, r-1, c-1, dp);
+        // vector<vector<int>> dp(r, vector<int> (c, -1));
+        // return solveMem(grid, r-1, c-1, dp);
+        
+        return solveTab(grid);
     }
 };
