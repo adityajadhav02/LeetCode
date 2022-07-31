@@ -12,9 +12,32 @@ public:
         int notTake = solve(ind+1, amount, coins, dp);
         return dp[ind][amount] = take+notTake;
     }
-    int change(int amount, vector<int>& coins) {
+    
+    int solveTab(int amount, vector<int> &coins){
         int n = coins.size();
-        vector<vector<int>> dp(n, vector<int> (amount+1, -1));
-        return solve(0, amount, coins, dp);
+        vector<vector<int>> dp(n+1, vector<int> (amount+1, 0));
+        
+        // base case
+        for(int i=0; i<n; i++)
+            dp[i][0] = 1;
+        
+        for(int ind=n-1; ind>=0; ind--){
+            for(int amt = 1; amt<=amount; amt++){
+                int take = 0;
+                if(amt - coins[ind] >= 0)
+                    take = dp[ind][amt-coins[ind]];
+
+                int notTake = dp[ind+1][amt];
+                dp[ind][amt] = take+notTake;
+            }
+        }
+        return dp[0][amount];
+    }
+    int change(int amount, vector<int>& coins) {
+        // int n = coins.size();
+        // vector<vector<int>> dp(n, vector<int> (amount+1, -1));
+        // return solve(0, amount, coins, dp);
+        
+        return solveTab(amount, coins);
     }
 };
