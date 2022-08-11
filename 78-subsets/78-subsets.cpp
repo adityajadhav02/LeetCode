@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(vector<int> &nums, vector<int> op, int ind, vector<vector<int>> &ans){
+    void solve(vector<int> &nums, vector<int> &op, int ind, vector<vector<int>> &ans){
         // base case
         if(ind<0){
             ans.push_back(op);
