@@ -1,15 +1,19 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        vector<int> ans(2, -1);
-        vector<int> mp(nums.size()+1, 0);
-        for(int i: nums)
-            mp[i]++;
+        int dup = -1, miss = -1;
         
-        for(int i=1; i<mp.size(); i++){
-            if(mp[i] == 2) ans[0] = i;
-            if(mp[i] == 0) ans[1] = i;
+        for(int i: nums){
+            if(nums[abs(i) - 1] < 0) dup = abs(i);
+            
+            else
+            nums[abs(i)-1] *= -1; 
         }
-        return ans;
+        
+        for(int i=0; i<nums.size(); i++){
+            if(nums[abs(i)] > 0) miss = i+1;
+        }
+        
+        return {dup, miss};
     }
 };
