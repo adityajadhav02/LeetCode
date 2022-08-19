@@ -14,7 +14,8 @@ public:
             if(prefix[i] == k) ans++;
             
             int diff = prefix[i]-k;
-            if(mp.find(diff) != mp.end()) ans += mp[diff];
+            // if(mp.find(diff) != mp.end()) ans += mp[diff];
+            if(mp[diff] > 0) ans += mp[diff];
             
             mp[prefix[i]]++;
         }
